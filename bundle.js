@@ -48,47 +48,16 @@
 
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
+	var BeachSelector = __webpack_require__(158);
 
-	var Counter = React.createClass({
-	  displayName: 'Counter',
-
-	  getInitialState: function getInitialState() {
-	    return { count: 0 };
-	  },
-
-	  increase: function increase() {
-	    this.setState({ count: this.state.count + 1 });
-	  },
-
-	  decrease: function decrease() {
-	    this.setState({ count: this.state.count - 1 });
-	  },
-
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'p',
-	        null,
-	        'Actual: ',
-	        this.state.count
-	      ),
-	      React.createElement(
-	        'button',
-	        { type: 'button', className: 'btn btn-primary',
-	          onClick: this.increase },
-	        'Aumentar'
-	      ),
-	      React.createElement(
-	        'button',
-	        { type: 'button', className: 'btn btn-danger',
-	          onClick: this.decrease },
-	        'Dismnuir'
-	      )
-	    );
-	  }
-	});
+	var beaches = [{ name: "Reñaca", place: "V Región",
+	  img: "https://c1.staticflickr.com/3/2782/4502745583_1c3267a12e_b.jpg" }, { name: "Anakena", place: "Isla de Pascua",
+	  img: "http://www.isladepascua.travel/wp-content/uploads/2012/03/playa-chile-vacaciones-isla-de-pascua.jpg" }, { name: "Pichilemu", place: "VI Región",
+	  img: "http://chile.voyhoy.com/blog/wp-content/uploads/surfista-pichilemu-voyhoy-2.jpg" }, { name: "La Virgen", place: "III Región",
+	  img: "http://contenidos.playalavirgen.cl/notas/galerias/fotos/galeria35_270.jpg" }, { name: "Zapallar", place: "V Región",
+	  img: "http://www.elmostrador.cl/wp-content/uploads/2015/01/Zapallar_816x544.jpg" }, { name: "Pan de Azucar", place: "III Región",
+	  img: "http://farm5.static.flickr.com/4031/4474776248_396318f77a.jpg" }, { name: "Playa Arena Gruesa", place: "X Región",
+	  img: "http://www.plataformaurbana.cl/wp-content/uploads/2014/02/1392823726_playa_arena_gruesa-528x351.jpg" }];
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -100,9 +69,14 @@
 	      React.createElement(
 	        'h1',
 	        null,
-	        'Contadores'
+	        'Concurso de playas'
 	      ),
-	      React.createElement(Counter, null)
+	      React.createElement(
+	        'h2',
+	        null,
+	        'Vota por tu playa favorita!'
+	      ),
+	      React.createElement(BeachSelector, { beaches: beaches })
 	    );
 	  }
 	});
@@ -19655,6 +19629,86 @@
 
 	module.exports = __webpack_require__(3);
 
+
+/***/ },
+/* 158 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Beach = __webpack_require__(159);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  render: function render() {
+
+	    var beachList = this.props.beaches.map(function (beach) {
+	      return React.createElement(
+	        'div',
+	        { key: beach.name, className: 'col-md-4' },
+	        React.createElement(Beach, { beach: beach })
+	      );
+	    });
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'row' },
+	        beachList
+	      )
+	    );
+	  }
+	});
+
+/***/ },
+/* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+
+	module.exports = React.createClass({
+	  displayName: 'exports',
+
+	  propTypes: {
+	    beach: React.PropTypes.shape({
+	      img: React.PropTypes.string.isRequired,
+	      name: React.PropTypes.string.isRequired,
+	      place: React.PropTypes.string.isRequired
+	    })
+	  },
+
+	  render: function render() {
+	    var _props$beach = this.props.beach;
+	    var img = _props$beach.img;
+	    var name = _props$beach.name;
+	    var place = _props$beach.place;
+
+	    var style = { height: '300px', width: '300px' };
+
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement('img', { src: img, style: style, className: 'img-rounded' }),
+	      React.createElement(
+	        'h3',
+	        null,
+	        name
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        place
+	      ),
+	      React.createElement('br', null)
+	    );
+	  }
+	});
 
 /***/ }
 /******/ ]);
