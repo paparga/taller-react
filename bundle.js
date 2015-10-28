@@ -19639,33 +19639,82 @@
 	var React = __webpack_require__(1);
 	var Beach = __webpack_require__(159);
 
-	module.exports = React.createClass({
-	  displayName: 'exports',
+	module.exports = function (_ref) {
+	  var beaches = _ref.beaches;
 
-	  render: function render() {
-
-	    var beachList = this.props.beaches.map(function (beach) {
-	      return React.createElement(
-	        'div',
-	        { key: beach.name, className: 'col-md-4' },
-	        React.createElement(Beach, { beach: beach })
-	      );
-	    });
-
+	  var beachList = beaches.map(function (beach) {
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'row' },
-	        beachList
-	      )
+	      { key: beach.name, className: 'col-md-4' },
+	      React.createElement(Beach, { beach: beach })
 	    );
-	  }
-	});
+	  });
+
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement(
+	      'div',
+	      { className: 'row' },
+	      beachList
+	    )
+	  );
+	};
 
 /***/ },
 /* 159 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(1);
+	var Counter = __webpack_require__(160);
+
+	var Beach = function Beach(_ref) {
+	  var beach = _ref.beach;
+	  var img = beach.img;
+	  var name = beach.name;
+	  var place = beach.place;
+	  var myStyle = beach.myStyle;
+
+	  var style = { height: '300px', width: '300px' };
+
+	  var isRenaca = name === 'Reñaca' ? 'la lleva' : null;
+
+	  return React.createElement(
+	    'div',
+	    null,
+	    React.createElement('img', { src: img, style: style, className: 'img-rounded' }),
+	    React.createElement(
+	      'h3',
+	      null,
+	      name,
+	      ' ',
+	      isRenaca
+	    ),
+	    React.createElement(
+	      'p',
+	      null,
+	      place
+	    ),
+	    React.createElement('br', null),
+	    React.createElement(Counter, { name: name }),
+	    React.createElement('br', null)
+	  );
+	};
+
+	Beach.propTypes = {
+	  beach: React.PropTypes.shape({
+	    img: React.PropTypes.string.isRequired,
+	    name: React.PropTypes.string.isRequired,
+	    place: React.PropTypes.string.isRequired
+	  })
+	};
+
+	module.exports = Beach;
+
+/***/ },
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -19675,37 +19724,45 @@
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
-	  propTypes: {
-	    beach: React.PropTypes.shape({
-	      img: React.PropTypes.string.isRequired,
-	      name: React.PropTypes.string.isRequired,
-	      place: React.PropTypes.string.isRequired
-	    })
+	  getInitialState: function getInitialState() {
+	    return { count: 0 };
+	  },
+
+	  increase: function increase() {
+	    this.setState({ count: this.state.count + 1 });
+	  },
+
+	  decrease: function decrease() {
+	    this.setState({ count: this.state.count - 1 });
 	  },
 
 	  render: function render() {
-	    var _props$beach = this.props.beach;
-	    var img = _props$beach.img;
-	    var name = _props$beach.name;
-	    var place = _props$beach.place;
 
-	    var style = { height: '300px', width: '300px' };
+	    var disabled = this.state.count <= 0 ? true : false;
+	    var winner = this.state.count >= 10 ? 'Ha ganado ' + this.props.name : null;
 
 	    return React.createElement(
 	      'div',
 	      null,
-	      React.createElement('img', { src: img, style: style, className: 'img-rounded' }),
-	      React.createElement(
-	        'h3',
-	        null,
-	        name
-	      ),
+	      winner,
 	      React.createElement(
 	        'p',
 	        null,
-	        place
+	        'Actual: ',
+	        this.state.count
 	      ),
-	      React.createElement('br', null)
+	      React.createElement(
+	        'button',
+	        { type: 'button', className: 'btn btn-primary',
+	          onClick: this.increase },
+	        'Aumentar'
+	      ),
+	      React.createElement(
+	        'button',
+	        { type: 'button', className: 'btn btn-danger', disabled: disabled,
+	          onClick: this.decrease },
+	        'Dismnuir'
+	      )
 	    );
 	  }
 	});

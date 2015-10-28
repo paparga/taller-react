@@ -1,27 +1,31 @@
 const React = require('react')
+const Counter = require('./counter')
 
-module.exports = React.createClass({
+const Beach = function({beach}) {
 
-  propTypes: {
-    beach:  React.PropTypes.shape({
-      img: React.PropTypes.string.isRequired,
-      name: React.PropTypes.string.isRequired,
-      place: React.PropTypes.string.isRequired,
-    }),
-  },
+  const {img, name, place, myStyle} = beach
+  const style = { height: '300px', width: '300px'}
 
-  render: function() {
+  const isRenaca = (name === 'Reñaca') ? 'la lleva' : null
 
-    const {img, name, place} = this.props.beach
-    const style = { height: '300px', width: '300px'}
+  return (
+    <div>
+      <img src={img} style={style} className="img-rounded"/>
+      <h3>{name} {isRenaca}</h3>
+      <p>{place}</p>
+      <br/>
+      <Counter name={name}/>
+      <br/>
+    </div>
+  )
+}
 
-    return (
-      <div>
-        <img src={img} style={style} className="img-rounded"/>
-        <h3>{name}</h3>
-        <p>{place}</p>
-        <br/>
-      </div>
-    )
-  }
-})
+Beach.propTypes = {
+  beach:  React.PropTypes.shape({
+    img: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string.isRequired,
+    place: React.PropTypes.string.isRequired
+  }),
+}
+
+module.exports = Beach

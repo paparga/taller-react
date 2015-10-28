@@ -1,11 +1,9 @@
 const React = require('react')
 const Beach = require('./beach')
 
-module.exports = React.createClass({
+module.exports = function({beaches}) {
 
-  render: function() {
-
-    const beachList = this.props.beaches.map(beach => {
+    const beachList = beaches.map(beach => {
       return <div key={beach.name} className="col-md-4"><Beach beach={beach}/></div>
     })
 
@@ -17,4 +15,3 @@ module.exports = React.createClass({
       </div>
     )
   }
-})
