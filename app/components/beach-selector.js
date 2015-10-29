@@ -3,15 +3,15 @@ const Beach = require('./beach')
 
 module.exports = function({beaches}) {
 
-    const beachList = beaches.map(beach => {
-      return <div key={beach.name} className="col-md-4"><Beach beach={beach}/></div>
-    })
+  const beachList = beaches.map(beach => {
+    return <div key={beach.get('id')} className="col-md-4"><Beach beach={beach}/></div>
+  })
 
-    return (
-      <div>
-        <div className="row">
-          {beachList}
-        </div>
+  return (
+    <div>
+      <div className="row">
+        {beachList}
       </div>
-    )
-  }
+    </div>
+  )
+}

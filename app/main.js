@@ -20,7 +20,7 @@ const beaches = [
     img:"http://www.plataformaurbana.cl/wp-content/uploads/2014/02/1392823726_playa_arena_gruesa-528x351.jpg"},
 ]
 
-const flux = new Nuclear.Reactor()
+const flux = new Nuclear.Reactor({debug: true})
 const beachStore = new Nuclear.Store({
   getInitialState:() =>{
     return Nuclear.toImmutable(beaches)
@@ -29,17 +29,23 @@ const beachStore = new Nuclear.Store({
   initialize: () => {}
 })
 
+flux.registerStores({beaches: beachStore});
+
 
 
 
 
 const App = React.createClass({
+  getInitialState: function() {
+      return {beaches: flux.evaluate(['beaches'])}
+  },
+
   render: function() {
     return (
       <div>
         <h1>Concurso de playas</h1>
         <h2>Vota por tu playa favorita!</h2>
-        <BeachSelector beaches={beaches}/>
+        <BeachSelector beaches={this.state.beaches}/>
       </div>
     )
   }
