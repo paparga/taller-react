@@ -6,7 +6,6 @@ const Beach = function({beach}) {
   const {img, name, place, myStyle} = beach
   const style = { height: '300px', width: '300px'}
 
-  const isRenaca = (name === 'Reñaca') ? 'la lleva' : null
 
   return (
     <div>
