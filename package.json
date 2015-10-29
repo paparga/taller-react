@@ -16,6 +16,7 @@
   },
   "homepage": "https://github.com/paparga/taller-react",
   "dependencies": {
+    "immutable": "^3.7.5",
     "react": "^0.14.0",
     "react-dom": "^0.14.0"
   },
