@@ -17,12 +17,4 @@ const Beach = function({beach}) {
   )
 }
 
-Beach.propTypes = {
-  beach:  React.PropTypes.shape({
-    img: React.PropTypes.string.isRequired,
-    name: React.PropTypes.string.isRequired,
-    place: React.PropTypes.string.isRequired
-  }),
-}
-
 module.exports = Beach
