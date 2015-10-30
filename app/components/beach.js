@@ -11,7 +11,7 @@ const Beach = function({beach}) {
       <h3>{beach.get('name')}</h3>
       <p>{beach.get('place')}</p>
       <br/>
-      <Counter id={beach.get('id')}/>
+      <Counter id={beach.get('id')} count={beach.get('count')}/>
       <br/>
     </div>
   )

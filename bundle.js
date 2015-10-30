@@ -49,15 +49,21 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(157);
 	var BeachSelector = __webpack_require__(158);
-	var Nuclear = __webpack_require__(161);
-	var flux = __webpack_require__(162);
-	var stores = __webpack_require__(163);
+	var Nuclear = __webpack_require__(162);
+	var flux = __webpack_require__(161);
+	var stores = __webpack_require__(164);
+	var getters = __webpack_require__(165);
 
 	var App = React.createClass({
 	  displayName: 'App',
 
-	  getInitialState: function getInitialState() {
-	    return { beaches: flux.evaluate(['beaches']) };
+	  mixins: [flux.ReactMixin],
+
+	  getDataBindings: function getDataBindings() {
+	    return {
+	      beaches: getters.beaches,
+	      onlyOne: getters.onlyOne
+	    };
 	  },
 
 	  render: function render() {
@@ -73,6 +79,11 @@
 	        'h2',
 	        null,
 	        'Vota por tu playa favorita!'
+	      ),
+	      React.createElement(
+	        'p',
+	        null,
+	        this.state.onlyOne
 	      ),
 	      React.createElement(BeachSelector, { beaches: this.state.beaches })
 	    );
@@ -19688,7 +19699,7 @@
 	      beach.get('place')
 	    ),
 	    React.createElement('br', null),
-	    React.createElement(Counter, { id: beach.get('id') }),
+	    React.createElement(Counter, { id: beach.get('id'), count: beach.get('count') }),
 	    React.createElement('br', null)
 	  );
 	};
@@ -19702,20 +19713,13 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
-	var flux = __webpack_require__(162);
+	var flux = __webpack_require__(161);
 
-	var actions = __webpack_require__(164);
+	var actions = __webpack_require__(163);
+	var getters = __webpack_require__(165);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
-
-	  mixins: [flux.ReactMixin],
-
-	  getDataBindings: function getDataBindings() {
-	    return {
-	      count: ['counters', this.props.id]
-	    };
-	  },
 
 	  increase: function increase() {
 	    actions.increase(this.props.id);
@@ -19727,7 +19731,7 @@
 
 	  render: function render() {
 
-	    var disabled = this.state.count <= 0 ? true : false;
+	    var disabled = this.props.count <= 0 ? true : false;
 
 	    return React.createElement(
 	      'div',
@@ -19736,7 +19740,7 @@
 	        'p',
 	        null,
 	        'Actual: ',
-	        this.state.count
+	        this.props.count
 	      ),
 	      React.createElement(
 	        'button',
@@ -19756,6 +19760,16 @@
 
 /***/ },
 /* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Nuclear = __webpack_require__(162);
+
+	module.exports = new Nuclear.Reactor({ debug: true });
+
+/***/ },
+/* 162 */
 /***/ function(module, exports, __webpack_require__) {
 
 	(function webpackUniversalModuleDefinition(root, factory) {
@@ -25944,23 +25958,29 @@
 	;
 
 /***/ },
-/* 162 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var Nuclear = __webpack_require__(161);
-
-	module.exports = new Nuclear.Reactor({ debug: true });
-
-/***/ },
 /* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Nuclear = __webpack_require__(161);
-	var flux = __webpack_require__(162);
+	var flux = __webpack_require__(161);
+
+	exports.increase = function (id) {
+	  flux.dispatch('aumentar-contador', id);
+	};
+
+	exports.decrease = function (id) {
+	  flux.dispatch('disminuir-contador', id);
+	};
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Nuclear = __webpack_require__(162);
+	var flux = __webpack_require__(161);
 
 	var beaches = [{ id: '1', name: "Reñaca", place: "V Región",
 	  img: "https://c1.staticflickr.com/3/2782/4502745583_1c3267a12e_b.jpg" }, { id: '2', name: "Anakena", place: "Isla de Pascua",
@@ -26009,20 +26029,23 @@
 	flux.registerStores({ beaches: beachStore, counters: counterStore });
 
 /***/ },
-/* 164 */
-/***/ function(module, exports, __webpack_require__) {
+/* 165 */
+/***/ function(module, exports) {
 
 	'use strict';
 
-	var flux = __webpack_require__(162);
+	exports.beaches = [['beaches'], ['counters'], function (beaches, counters) {
+	  return beaches.map(function (beach) {
+	    var id = beach.get('id');
+	    return beach.set('count', counters.get(id) || 0);
+	  });
+	}];
 
-	exports.increase = function (id) {
-	  flux.dispatch('aumentar-contador', id);
-	};
-
-	exports.decrease = function (id) {
-	  flux.dispatch('disminuir-contador', id);
-	};
+	exports.onlyOne = [['counters'], function (counters) {
+	  return counters.toList().some(function (x) {
+	    return x >= 10;
+	  });
+	}];
 
 /***/ }
 /******/ ]);

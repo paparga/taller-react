@@ -4,11 +4,21 @@ const BeachSelector = require('./components/beach-selector')
 const Nuclear = require('nuclear-js')
 const flux = require('./flux')
 const stores = require('./stores')
+const getters = require('./getters')
+
+
+
 
 
 const App = React.createClass({
-  getInitialState: function() {
-      return {beaches: flux.evaluate(['beaches'])}
+
+  mixins: [flux.ReactMixin],
+
+  getDataBindings() {
+    return {
+      beaches: getters.beaches,
+      onlyOne: getters.onlyOne,
+    }
   },
 
   render: function() {
@@ -16,6 +26,7 @@ const App = React.createClass({
       <div>
         <h1>Concurso de playas</h1>
         <h2>Vota por tu playa favorita!</h2>
+        <p>{this.state.onlyOne}</p>
         <BeachSelector beaches={this.state.beaches}/>
       </div>
     )
