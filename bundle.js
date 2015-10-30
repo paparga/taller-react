@@ -50,26 +50,8 @@
 	var ReactDOM = __webpack_require__(157);
 	var BeachSelector = __webpack_require__(158);
 	var Nuclear = __webpack_require__(161);
-
-	var beaches = [{ id: 1, name: "Reñaca", place: "V Región",
-	  img: "https://c1.staticflickr.com/3/2782/4502745583_1c3267a12e_b.jpg" }, { id: 2, name: "Anakena", place: "Isla de Pascua",
-	  img: "http://www.isladepascua.travel/wp-content/uploads/2012/03/playa-chile-vacaciones-isla-de-pascua.jpg" }, { id: 3, name: "Pichilemu", place: "VI Región",
-	  img: "http://chile.voyhoy.com/blog/wp-content/uploads/surfista-pichilemu-voyhoy-2.jpg" }, { id: 4, name: "La Virgen", place: "III Región",
-	  img: "http://contenidos.playalavirgen.cl/notas/galerias/fotos/galeria35_270.jpg" }, { id: 5, name: "Zapallar", place: "V Región",
-	  img: "http://www.elmostrador.cl/wp-content/uploads/2015/01/Zapallar_816x544.jpg" }, { id: 6, name: "Pan de Azucar", place: "III Región",
-	  img: "http://farm5.static.flickr.com/4031/4474776248_396318f77a.jpg" }, { id: 7, name: "Playa Arena Gruesa", place: "X Región",
-	  img: "http://www.plataformaurbana.cl/wp-content/uploads/2014/02/1392823726_playa_arena_gruesa-528x351.jpg" }];
-
-	var flux = new Nuclear.Reactor({ debug: true });
-	var beachStore = new Nuclear.Store({
-	  getInitialState: function getInitialState() {
-	    return Nuclear.toImmutable(beaches);
-	  },
-
-	  initialize: function initialize() {}
-	});
-
-	flux.registerStores({ beaches: beachStore });
+	var flux = __webpack_require__(162);
+	var stores = __webpack_require__(163);
 
 	var App = React.createClass({
 	  displayName: 'App',
@@ -19706,7 +19688,7 @@
 	      beach.get('place')
 	    ),
 	    React.createElement('br', null),
-	    React.createElement(Counter, { name: beach.get('name') }),
+	    React.createElement(Counter, { id: beach.get('id') }),
 	    React.createElement('br', null)
 	  );
 	};
@@ -19720,31 +19702,36 @@
 	'use strict';
 
 	var React = __webpack_require__(1);
+	var flux = __webpack_require__(162);
+
+	var actions = __webpack_require__(164);
 
 	module.exports = React.createClass({
 	  displayName: 'exports',
 
-	  getInitialState: function getInitialState() {
-	    return { count: 0 };
+	  mixins: [flux.ReactMixin],
+
+	  getDataBindings: function getDataBindings() {
+	    return {
+	      count: ['counters', this.props.id]
+	    };
 	  },
 
 	  increase: function increase() {
-	    this.setState({ count: this.state.count + 1 });
+	    actions.increase(this.props.id);
 	  },
 
 	  decrease: function decrease() {
-	    this.setState({ count: this.state.count - 1 });
+	    actions.decrease(this.props.id);
 	  },
 
 	  render: function render() {
 
 	    var disabled = this.state.count <= 0 ? true : false;
-	    var winner = this.state.count >= 10 ? 'Ha ganado ' + this.props.name : null;
 
 	    return React.createElement(
 	      'div',
 	      null,
-	      winner,
 	      React.createElement(
 	        'p',
 	        null,
@@ -25955,6 +25942,87 @@
 	/******/ ])
 	});
 	;
+
+/***/ },
+/* 162 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Nuclear = __webpack_require__(161);
+
+	module.exports = new Nuclear.Reactor({ debug: true });
+
+/***/ },
+/* 163 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var Nuclear = __webpack_require__(161);
+	var flux = __webpack_require__(162);
+
+	var beaches = [{ id: '1', name: "Reñaca", place: "V Región",
+	  img: "https://c1.staticflickr.com/3/2782/4502745583_1c3267a12e_b.jpg" }, { id: '2', name: "Anakena", place: "Isla de Pascua",
+	  img: "http://www.isladepascua.travel/wp-content/uploads/2012/03/playa-chile-vacaciones-isla-de-pascua.jpg" }, { id: '3', name: "Pichilemu", place: "VI Región",
+	  img: "http://chile.voyhoy.com/blog/wp-content/uploads/surfista-pichilemu-voyhoy-2.jpg" }, { id: '4', name: "La Virgen", place: "III Región",
+	  img: "http://contenidos.playalavirgen.cl/notas/galerias/fotos/galeria35_270.jpg" }, { id: '5', name: "Zapallar", place: "V Región",
+	  img: "http://www.elmostrador.cl/wp-content/uploads/2015/01/Zapallar_816x544.jpg" }, { id: '6', name: "Pan de Azucar", place: "III Región",
+	  img: "http://farm5.static.flickr.com/4031/4474776248_396318f77a.jpg" }, { id: '7', name: "Playa Arena Gruesa", place: "X Región",
+	  img: "http://www.plataformaurbana.cl/wp-content/uploads/2014/02/1392823726_playa_arena_gruesa-528x351.jpg" }];
+
+	var beachStore = new Nuclear.Store({
+	  getInitialState: function getInitialState() {
+	    return Nuclear.toImmutable(beaches);
+	  },
+
+	  initialize: function initialize() {}
+	});
+
+	var counterStore = new Nuclear.Store({
+	  getInitialState: function getInitialState() {
+	    return Nuclear.toImmutable({});
+	  },
+
+	  initialize: function initialize() {
+	    this.on('aumentar-contador', function (state, id) {
+	      if (state.has(id)) {
+	        return state.updateIn([id], function (count) {
+	          return count + 1;
+	        });
+	      } else {
+	        return state.setIn([id], 1);
+	      }
+	    });
+	    this.on('disminuir-contador', function (state, id) {
+	      if (state.has(id)) {
+	        return state.get(id) === 0 ? state : state.updateIn([id], function (count) {
+	          return count - 1;
+	        });
+	      } else {
+	        return state;
+	      }
+	    });
+	  }
+	});
+
+	flux.registerStores({ beaches: beachStore, counters: counterStore });
+
+/***/ },
+/* 164 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var flux = __webpack_require__(162);
+
+	exports.increase = function (id) {
+	  flux.dispatch('aumentar-contador', id);
+	};
+
+	exports.decrease = function (id) {
+	  flux.dispatch('disminuir-contador', id);
+	};
 
 /***/ }
 /******/ ]);

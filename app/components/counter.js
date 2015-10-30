@@ -1,28 +1,33 @@
 const React = require('react')
+const flux = require('../flux')
+
+const actions = require('../actions')
 
 module.exports = React.createClass({
-  getInitialState: function() {
-    return {count: 0}
+
+  mixins: [flux.ReactMixin],
+
+  getDataBindings() {
+    return {
+      count: ['counters',this.props.id],
+    }
   },
 
   increase: function(){
-    this.setState({count: this.state.count + 1})
+    actions.increase(this.props.id)
   },
 
   decrease: function(){
-    this.setState({count: this.state.count - 1})
+    actions.decrease(this.props.id)
   },
 
   render: function() {
 
     const disabled = (this.state.count <= 0) ? true : false
-    const winner = (this.state.count >= 10)
-                    ? 'Ha ganado ' + this.props.name
-                    : null
 
     return (
       <div>
-        {winner}
+
         <p>Actual: {this.state.count}</p>
         <button type="button" className="btn btn-primary"
                 onClick={this.increase}>Aumentar</button>
