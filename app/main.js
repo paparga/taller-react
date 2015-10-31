@@ -25,8 +25,7 @@ const App = React.createClass({
     return (
       <div>
         <h1>Concurso de playas</h1>
-        <h2>Vota por tu playa favorita!</h2>
-        <p>{this.state.onlyOne}</p>
+        <h2>Vota por tu playa favorita!!!!</h2>
         <BeachSelector beaches={this.state.beaches}/>
       </div>
     )

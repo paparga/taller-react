@@ -20,7 +20,11 @@ const beaches = [
 
 const beachStore = new Nuclear.Store({
   getInitialState:() =>{
-    return Nuclear.toImmutable(beaches)
+    let temp = beaches.reduce((obj,beach) => {
+      obj[beach.id] = beach
+      return obj
+    },{})
+    return Nuclear.toImmutable(temp)
   },
 
   initialize: () => {}
