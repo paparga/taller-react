@@ -1,5 +1,6 @@
 const React = require('react')
 const Beach = require('./beach')
+const {Link} = require('react-router');
 
 const flux = require('../flux')
 const getters = require('../getters')
@@ -31,6 +32,7 @@ const OneBeach = React.createClass({
             {isData}
           </div>
         </div>
+        <Link to={'/beaches'}>Volver</Link>
 
       </div>
     )
