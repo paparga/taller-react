@@ -20,8 +20,12 @@ const OneBeach = React.createClass({
     actions.fetchAllBeaches()
   },
 
+  componentDidMount(){
+    actions.setCurrentBeach(this.props.params.id)
+  },
+
   render: function() {
-    const isData = (this.state.beach)
+    const isData = (this.state.beach != null)
                     ? <Beach beach={this.state.beach}/>
                     : <p>Cargando ... </p>
     return (

@@ -24,29 +24,17 @@ const beachStore = new Nuclear.Store({
   }
 })
 
-const counterStore = new Nuclear.Store({
-  getInitialState:() =>{
+const currentValuesStore = new Nuclear.Store({
+  getInitialState:() => {
     return Nuclear.toImmutable({})
   },
 
-  initialize: function(){
-  //   this.on('aumentar-contador', (state,id)=>{
-  //     if (state.has(id)) {
-  //       return state.updateIn([id], count => count + 1)
-  //     }else {
-  //       return state.setIn([id],1)
-  //     }
-  //   })
-  //   this.on('disminuir-contador', (state,id)=>{
-  //     if (state.has(id)) {
-  //       return (state.get(id) === 0)
-  //               ? state
-  //               : state.updateIn([id], count => count - 1)
-  //     }else {
-  //       return state
-  //     }
-  //   })
+  initialize: function() {
+    this.on(actionTypes.SET_CURRENT_BEACH, (state,id) => {
+      return state.set('beach', id)
+    })
+
   }
 })
 
-flux.registerStores({beaches: beachStore, counters: counterStore})
+flux.registerStores({beaches: beachStore, currentValues: currentValuesStore})

@@ -13,7 +13,6 @@ const BeachList = React.createClass({
   getDataBindings() {
     return {
       beaches: getters.beaches,
-      onlyOne: getters.onlyOne,
     }
   },
 

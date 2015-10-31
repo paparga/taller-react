@@ -33,3 +33,7 @@ exports.fetchAllBeaches = () =>{
       console.error(err)
     })
 }
+
+exports.setCurrentBeach = (id) => {
+  flux.dispatch(actionTypes.SET_CURRENT_BEACH, id)
+}
