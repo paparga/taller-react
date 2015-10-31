@@ -14,6 +14,9 @@ const beachStore = new Nuclear.Store({
         return obj
       },{}))
     })
+    this.on('aumentar-contador',(state,id)=>{
+      return state.updateIn([id, 'count'], count => count + 1)
+    })
   }
 })
 
@@ -23,22 +26,22 @@ const counterStore = new Nuclear.Store({
   },
 
   initialize: function(){
-    this.on('aumentar-contador', (state,id)=>{
-      if (state.has(id)) {
-        return state.updateIn([id], count => count + 1)
-      }else {
-        return state.setIn([id],1)
-      }
-    })
-    this.on('disminuir-contador', (state,id)=>{
-      if (state.has(id)) {
-        return (state.get(id) === 0)
-                ? state
-                : state.updateIn([id], count => count - 1)
-      }else {
-        return state
-      }
-    })
+  //   this.on('aumentar-contador', (state,id)=>{
+  //     if (state.has(id)) {
+  //       return state.updateIn([id], count => count + 1)
+  //     }else {
+  //       return state.setIn([id],1)
+  //     }
+  //   })
+  //   this.on('disminuir-contador', (state,id)=>{
+  //     if (state.has(id)) {
+  //       return (state.get(id) === 0)
+  //               ? state
+  //               : state.updateIn([id], count => count - 1)
+  //     }else {
+  //       return state
+  //     }
+  //   })
   }
 })
 
