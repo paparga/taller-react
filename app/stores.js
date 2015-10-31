@@ -15,10 +15,10 @@ const beachStore = new Nuclear.Store({
         return obj
       },{}))
     })
-    this.on('aumentar-contador',(state,id)=>{
+    this.on(actionTypes.AUMENTAR_CONTADOR,(state,id)=>{
       return state.updateIn([id, 'count'], count => count + 1)
     })
-    this.on('disminuir-contador',(state,id)=>{
+    this.on(actionTypes.DISMINUIR_CONTADOR,(state,id)=>{
       return state.updateIn([id, 'count'], count => count - 1)
     })
   }

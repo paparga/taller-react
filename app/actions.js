@@ -2,12 +2,10 @@ const flux = require('./flux')
 const beachesApi = require('./utils/beaches-api')
 const actionTypes = require('./action-types')
 
-console.log(beachesApi);
-
 exports.increase = (id) => {
   beachesApi.vote(id)
     .then((data)=>{
-      flux.dispatch('aumentar-contador',id)
+      flux.dispatch(actionTypes.AUMENTAR_CONTADOR,id)
     })
     .catch((err)=>{
       console.error(err)
@@ -18,7 +16,7 @@ exports.increase = (id) => {
 exports.decrease = (id) => {
   beachesApi.unVote(id)
     .then((data)=>{
-      flux.dispatch('disminuir-contador',id)
+      flux.dispatch(actionTypes.DISMINUIR_CONTADOR,id)
     })
     .catch((err)=>{
       console.error(err)

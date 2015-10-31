@@ -1,5 +1,7 @@
-const keymirror = require('keymirror')
+const keyMirror = require('keymirror')
 
-module.exports = {
+module.exports = keyMirror({
   FETCH_ALL_BEACHES: null,
-}
+  AUMENTAR_CONTADOR: null,
+  DISMINUIR_CONTADOR: null,
+})
