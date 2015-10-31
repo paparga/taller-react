@@ -1,5 +1,6 @@
 const flux = require('./flux')
 const beachesApi = require('./utils/beaches-api')
+const actionTypes = require('./action-types')
 
 console.log(beachesApi);
 
@@ -28,7 +29,7 @@ exports.decrease = (id) => {
 exports.fetchAllBeaches = () =>{
   beachesApi.fetchAll()
     .then((data)=>{
-      flux.dispatch('fetch_all_beaches', data)
+      flux.dispatch(actionTypes.FETCH_ALL_BEACHES, data)
     })
     .catch((err)=>{
       console.error(err)
