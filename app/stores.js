@@ -21,6 +21,10 @@ const beachStore = new Nuclear.Store({
     this.on(actionTypes.UNVOTE, (state,id)=>{
       return state.updateIn([id, 'count'], count => count - 1)
     })
+    this.on(actionTypes.FETCH_ONE_BEACH, (state, beach)=>{
+
+      return state.set(beach.id, Nuclear.toImmutable(beach))
+    })
   }
 })
 

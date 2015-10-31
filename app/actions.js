@@ -19,3 +19,9 @@ exports.fetchBeaches = () => {
     .then((res) => flux.dispatch(actionTypes.FETCH_BEACHES, res))
     .catch((err)=>{console.error(err)})
 }
+
+exports.fetchOneBeache = (id) => {
+  beaches.fetch(id)
+    .then((res) => flux.dispatch(actionTypes.FETCH_ONE_BEACH, res))
+    .catch((err)=>{console.error(err)})
+}
