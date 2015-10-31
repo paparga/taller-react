@@ -15,7 +15,14 @@ exports.increase = (id) => {
 }
 
 exports.decrease = (id) => {
-  flux.dispatch('disminuir-contador',id)
+  beachesApi.unVote(id)
+    .then((data)=>{
+      flux.dispatch('disminuir-contador',id)
+    })
+    .catch((err)=>{
+      console.error(err)
+    })
+
 }
 
 exports.fetchAllBeaches = () =>{
