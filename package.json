@@ -6,7 +6,8 @@
     "clean": "rimraf dist",
     "build:webpack": "NODE_ENV=production webpack --config webpack.config.prod.js",
     "build": "npm run clean && npm run build:webpack",
-    "start": "node devServer.js"
+    "start": "node devServer.js",
+    "test": "mocha 'spec/**/*.js' --compilers js:babel/register -R spec -w"
   },
   "repository": {
     "type": "git",
@@ -33,8 +34,10 @@
   "devDependencies": {
     "babel-core": "^5.8.29",
     "babel-loader": "^5.3.2",
+    "chai": "^3.4.0",
     "express": "^4.13.3",
     "rimraf": "^2.4.3",
+    "sinon": "^1.17.2",
     "webpack": "^1.12.2",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.0.0"
