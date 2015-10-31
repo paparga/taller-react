@@ -18,7 +18,7 @@ app.use(require('webpack-dev-middleware')(compiler, {
   publicPath: config.output.publicPath
 }));
 
-var timeout = 1000; // demora los llamados
+var timeout = 200; // demora los llamados
 
 // MOCK DB
 
