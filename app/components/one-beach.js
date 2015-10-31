@@ -5,7 +5,7 @@ const flux = require('../flux')
 const getters = require('../getters')
 const actions = require('../actions')
 
-const BeachList = React.createClass({
+const OneBeach = React.createClass({
 
   mixins: [flux.ReactMixin],
 
@@ -37,4 +37,4 @@ const BeachList = React.createClass({
   }
 })
 
-module.exports = BeachList
+module.exports = OneBeach
