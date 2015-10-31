@@ -1,11 +1,13 @@
 const axios = require('axios')
 
-exports.fetchAll = () => axios.get('/beaches')
+const getData = res => res.data
 
-exports.fetch = (id) => axios.get('/beaches/' + id)
+exports.fetchAll = () => axios.get('/beaches').then(getData)
 
-exports.update = (id, body) => axios.put('/beaches/' + id, body)
+exports.fetch = (id) => axios.get('/beaches/' + id).then(getData)
 
-exports.vote = (id) => axios.get('/beaches/' + id + '/vote')
+exports.update = (id, body) => axios.put('/beaches/' + id, body).then(getData)
 
-exports.unVote = (id) => axios.get('/beaches/' + id + '/unvote')
+exports.vote = (id) => axios.post('/beaches/' + id + '/vote').then(getData)
+
+exports.unVote = (id) => axios.post('/beaches/' + id + '/unvote').then(getData)

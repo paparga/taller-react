@@ -5,10 +5,7 @@ const Nuclear = require('nuclear-js')
 const flux = require('./flux')
 const stores = require('./stores')
 const getters = require('./getters')
-
-
-
-
+const actions = require('./actions')
 
 const App = React.createClass({
 
@@ -21,12 +18,20 @@ const App = React.createClass({
     }
   },
 
+  componentWillMount(){
+    actions.fetchBeaches()
+  },
+
   render: function() {
+    const beaches = this.state.beaches
+    const beachList = <BeachSelector beaches={beaches}/>
+    const isLoaded = (beaches.size > 0) ? beachList : <p>Cargando...</p>
+
     return (
       <div>
         <h1>Concurso de playas</h1>
-        <h2>Vota por tu playa favorita!!!!</h2>
-        <BeachSelector beaches={this.state.beaches}/>
+        <h2>Vota por tu playa favorita!</h2>
+        {isLoaded}
       </div>
     )
   }
