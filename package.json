@@ -22,6 +22,7 @@
     "axios": "^0.7.0",
     "body-parser": "^1.14.1",
     "immutable": "^3.7.5",
+    "keymirror": "^0.1.1",
     "multer": "^1.1.0",
     "nuclear-js": "^1.1.1",
     "react": "^0.14.0",
