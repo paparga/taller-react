@@ -14,11 +14,11 @@ app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 
 app.use(require('webpack-dev-middleware')(compiler, {
-  noInfo: true,
+  noInfo: false,
   publicPath: config.output.publicPath
 }));
 
-var timeout = 250; // demora los llamados
+var timeout = 1000; // demora los llamados
 
 // MOCK DB
 
