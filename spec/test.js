@@ -20,7 +20,7 @@ describe('Taller React/Flux', () => {
     flux.reset()
   })
 
-  describe('beaches', () => {
+  describe('actions', () => {
 
     describe('#fetchBeaches', () => {
       beforeEach(() => {
@@ -77,6 +77,6 @@ describe('Taller React/Flux', () => {
           done()
         })
       })
-    })  
+    })
   })
 })
