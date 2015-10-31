@@ -1,40 +1,13 @@
 const React = require('react')
 const ReactDOM = require('react-dom')
-const BeachSelector = require('./components/beach-selector')
-const Nuclear = require('nuclear-js')
-const flux = require('./flux')
-const stores = require('./stores')
-const getters = require('./getters')
-const actions = require('./actions')
+const {Route, Router, IndexRoute} = require('react-router')
+const BeachList = require('./components/beach-list');
 
-const App = React.createClass({
+const routes = (
+  <Route path='/'>
+    <Route path='/beaches' component={BeachList}/>
+    <IndexRoute component={BeachList}/>
+  </Route>
+)
 
-  mixins: [flux.ReactMixin],
-
-  getDataBindings() {
-    return {
-      beaches: getters.beaches,
-      onlyOne: getters.onlyOne,
-    }
-  },
-
-  componentWillMount(){
-    actions.fetchAllBeaches()
-  },
-
-  render: function() {
-    const isData = (this.state.beaches.size)
-                    ? <BeachSelector beaches={this.state.beaches}/>
-                    : <p>Cargando ... </p>
-    return (
-      <div>
-        <h1>Concurso de playas</h1>
-        <h2>Vota por tu playa favorita!!!!</h2>
-        {isData}
-
-      </div>
-    )
-  }
-})
-
-ReactDOM.render(<App />, document.getElementById('app'))
+ReactDOM.render(<Router>{routes}</Router>, document.getElementById('app'))
