@@ -1,4 +1,5 @@
 const flux = require('./flux')
+const beaches = require('./utils/beaches-api')
 
 exports.increase = (id) => {
   flux.dispatch('aumentar-contador',id)
