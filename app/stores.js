@@ -15,6 +15,9 @@ const beachStore = new Nuclear.Store({
         return obj
       },{}))
     })
+    this.on(actionTypes.UPDATE_BEACH,(state, beach) => {
+      return state.set(beach.id, Nuclear.toImmutable(beach))
+    })
     this.on(actionTypes.AUMENTAR_CONTADOR,(state,id)=>{
       return state.updateIn([id, 'count'], count => count + 1)
     })
@@ -26,12 +29,15 @@ const beachStore = new Nuclear.Store({
 
 const currentValuesStore = new Nuclear.Store({
   getInitialState:() => {
-    return Nuclear.toImmutable({})
+    return Nuclear.toImmutable({editingBeach:false})
   },
 
   initialize: function() {
     this.on(actionTypes.SET_CURRENT_BEACH, (state,id) => {
       return state.set('beach', id)
+    })
+    this.on(actionTypes.EDITING_BEACH, (state,bool) => {
+      return state.set('editingBeach', bool)
     })
 
   }

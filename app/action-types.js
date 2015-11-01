@@ -5,4 +5,6 @@ module.exports = keyMirror({
   AUMENTAR_CONTADOR: null,
   DISMINUIR_CONTADOR: null,
   SET_CURRENT_BEACH: null,
+  EDITING_BEACH: null,
+  UPDATE_BEACH: null,
 })

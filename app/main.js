@@ -3,6 +3,7 @@ const ReactDOM = require('react-dom')
 const {Route, Router, IndexRoute} = require('react-router')
 const BeachList = require('./components/beach-list')
 const OneBeach = require('./components/one-beach')
+const form = require('./modules/form')
 
 const routes = (
   <Route path='/'>

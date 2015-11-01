@@ -1,4 +1,4 @@
-const flux = require('./flux');
+const form = require('./modules/form')
 
 exports.beaches = [['beaches'], (beaches) => {
   return beaches.toList()
@@ -7,11 +7,10 @@ exports.beaches = [['beaches'], (beaches) => {
 
 exports.oneBeach = (id) => ['beaches', id]
 
-exports.currentBeach = [
-  ['currentValues', 'beach'],
-  (currentBeach) => {
-    return (currentBeach)
-            ? flux.evaluate(['beaches', currentBeach])
-            : null
-  }
+exports.currentBeach = [['beaches'],['currentValues', 'beach'],
+  (beaches,id) => beaches.get(id)
 ]
+
+exports.isEditingBeach = ['currentValues','editingBeach']
+
+exports.editBeachFormValues = form.getters.currentValues('beach_edit_form')
