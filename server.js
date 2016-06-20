@@ -1,22 +1,24 @@
 var path = require('path');
 var express = require('express');
-var webpack = require('webpack');
-var config = require('./webpack.config.dev');
+// var webpack = require('webpack');
+// var config = require('./webpack.config.dev');
 var Immutable = require('immutable');
 var bodyParser = require('body-parser');
 var multer = require('multer'); // v1.0.5
 var upload = multer(); // for parsing multipart/form-data
 
 var app = express();
-var compiler = webpack(config);
+// var compiler = webpack(config);
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: false })); // for parsing application/x-www-form-urlencoded
 
+/*
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: false,
   publicPath: config.output.publicPath
 }));
+*/
 
 var timeout = 2; // demora los llamados
 
